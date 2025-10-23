@@ -1,0 +1,36 @@
+{% extends 'staff_app/base.html' %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<div class="card">
+    <h3>Welcome, {{ user.username }}!</h3>
+    <p>This is the Staff Performance Evaluation System.</p>
+    
+    <div style="display: flex; gap: 20px; margin-top: 20px;">
+        <div class="card" style="flex: 1;">
+            <h4>Quick Actions</h4>
+            <ul>
+                <li><a href="{% url 'upload_csv' %}">Upload CSV Data</a></li>
+                <li><a href="{% url 'evaluate_performance' %}">Evaluate Performance</a></li>
+                <li><a href="{% url 'view_data' %}">View Performance Data</a></li>
+                {% if user.is_staff %}
+                <li><a href="{% url 'create_user' %}">Create New User</a></li>
+                <li><a href="/admin/">Admin Panel</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        <div class="card" style="flex: 1;">
+            <h4>System Info</h4>
+            <p><strong>User Role:</strong> {% if user.is_staff %}Administrator{% else %}User{% endif %}</p>
+            <p><strong>Features:</strong></p>
+            <ul>
+                <li>CSV Data Upload</li>
+                <li>ML Performance Prediction</li>
+                <li>User Management</li>
+                <li>Data Visualization</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
