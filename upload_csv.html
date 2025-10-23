@@ -1,0 +1,41 @@
+{% extends 'staff_app/base.html' %}
+
+{% block content %}
+<h1>Upload CSV File</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label>Select CSV File:</label>
+        <input type="file" name="csv_file" accept=".csv" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Data Type:</label>
+        <select name="data_type">
+            <option value="time">Time Tracking Data</option>
+            <option value="activity">Activity Level Data</option>
+        </select>
+    </div>
+    
+    <button type="submit">Upload and Process</button>
+</form>
+
+{% if result %}
+<div class="card" style="background: #d4edda; margin-top: 20px;">
+    <h3>Success!</h3>
+    <p>{{ result }}</p>
+    {% if columns %}
+    <p><strong>Columns found:</strong> {{ columns|join:", " }}</p>
+    {% endif %}
+</div>
+{% endif %}
+
+{% if error %}
+<div class="card" style="background: #f8d7da; margin-top: 20px;">
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+</div>
+{% endif %}
+{% endblock %}
